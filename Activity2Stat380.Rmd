@@ -1,0 +1,56 @@
+---
+title: "Activity2Stat380"
+output: html_document
+date: "2023-09-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load packages used in this guide ----
+packages <- c("tidyverse", "knitr", "kableExtra", "leaps")
+
+invisible(
+  lapply(
+    X = packages,
+    FUN = library,
+    character.only = TRUE,
+    quietly = TRUE
+  )
+)
+
+# Set Table Option ----
+options(knitr.kable.NA = "")
+```
+
+```{r}
+activity2_insurance <- read.csv("~/Downloads/activity2_insurance.csv")
+View(activity2_insurance)
+```
+
+```{r}
+activity2_insurance %>%
+  ggplot(
+    mapping = aes(x = bmi, y = charges, color = sex)
+  ) +
+  geom_point(size = 0.5) +
+  facet_grid(rows = vars(region), cols = vars(smoker))
+```
+```{r}
+factored_activity<-
+activity2_insurance %>%
+  factor(x = smoker)
+```
+
+
+```{r}
+first_model <- lm(
+  formula = charges ~ c(bmi,age,children),
+  data = activity2_insurance,
+  na.action = "na.omit"
+)
+```
+
+
