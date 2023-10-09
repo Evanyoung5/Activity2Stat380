@@ -26,9 +26,13 @@ options(knitr.kable.NA = "")
 ```
 
 ```{r}
-activity2_insurance <- read.csv("~/Downloads/activity2_insurance.csv")
+activity2_insurance <- read.csv("activity2_insurance.csv")
+```
+
+```{r}
 View(activity2_insurance)
 ```
+
 
 ```{r}
 activity2_insurance %>%
@@ -39,18 +43,26 @@ activity2_insurance %>%
   facet_grid(rows = vars(region), cols = vars(smoker))
 ```
 ```{r}
-factored_activity<-
-activity2_insurance %>%
-  factor(x = smoker)
+activity2_insurance$sex <- as.factor(activity2_insurance$sex)
+activity2_insurance$region <- as.factor(activity2_insurance$region)
+activity2_insurance$smoker <- as.factor(activity2_insurance$smoker)
 ```
 
 
 ```{r}
 first_model <- lm(
-  formula = charges ~ c(bmi,age,children),
+  formula = charges ~ smoker,age,children,
   data = activity2_insurance,
   na.action = "na.omit"
 )
 ```
 
 
+```{r}
+summary(first_model)
+```
+
+
+```{r}
+
+```
